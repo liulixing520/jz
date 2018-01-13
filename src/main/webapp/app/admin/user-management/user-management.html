@@ -1,0 +1,102 @@
+<!-- Breadcrumb -->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"> <a href="/">Home</a></li>
+    <li class="breadcrumb-item active" ng-show="vm.$state.current.name.includes('.')" data-translate="{{vm.$state.current.parent}}"></li>
+    <li class="breadcrumb-item active" data-translate="{{vm.$state.current.name}}"></li>
+
+</ol>
+
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> <span data-translate="userManagement.home.title"></span>
+                        <button class="btn btn-primary" ui-sref="user-management.new">
+                            <span class="glyphicon glyphicon-flash"></span> <span data-translate="userManagement.home.createLabel">Create a new User</span>
+                        </button>
+                    </div>
+                    <div class="card-block">
+                        <table class="table table-bordered  table-condensed">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>登录账号</th>
+                                <th>邮箱</th>
+                                <th>是否激活</th>
+                                <th>语言</th>
+                                <th>角色</th>
+                                <th>创建时间</th>
+                                <th>最近修改人</th>
+                                <th>最近修改时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr ng-repeat="user in vm.users track by user.id">
+                                <td><a ui-sref="user-management-detail({login:user.login})">{{user.id}}</a></td>
+                                <td>{{user.login}}</td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs" ng-click="vm.setActive(user, true)" ng-show="!user.activated"
+                                            data-translate="userManagement.deactivated">Deactivated</button>
+                                    <button class="btn btn-success btn-xs" ng-click="vm.setActive(user, false)" ng-show="user.activated"
+                                            ng-disabled="vm.currentAccount.login === user.login" data-translate="userManagement.activated">Activated</button>
+                                </td>
+                                <td>{{user.langKey}}</td>
+                                <td>
+                                    <div ng-repeat="authority in user.authorities">
+                                        <span class="label label-info">{{ authority }}</span>
+                                    </div>
+                                </td>
+                                <td>{{user.createdDate | date:'dd/MM/yy HH:mm'}}</td>
+                                <td>{{user.lastModifiedBy}}</td>
+                                <td>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <!--<button type="submit"-->
+                                                <!--ui-sref="user-management-detail({login:user.login})"-->
+                                                <!--class="btn btn-info btn-sm">-->
+                                            <!--<span class="glyphicon glyphicon-eye-open"></span>-->
+                                            <!--<span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>-->
+                                        <!--</button>-->
+                                        <button type="submit"
+                                                ui-sref="user-management.edit({login:user.login})"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="user-management.delete({login:user.login})"
+                                                class="btn btn-danger btn-sm" ng-disabled="vm.currentAccount.login === user.login">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <nav>
+                            <ul class="pagination">
+                                <div class="text-center">
+                                    <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+                                    <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+                                </div>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+        </div>
+        <!--/.row-->
+    </div>
+
+</div>
+<!-- /.conainer-fluid -->
