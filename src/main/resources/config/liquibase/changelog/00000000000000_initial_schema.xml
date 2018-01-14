@@ -142,5 +142,63 @@
                                  constraintName="fk_evt_pers_audit_evt_data"
                                  referencedColumnNames="event_id"
                                  referencedTableName="jhi_persistent_audit_event"/>
+        <!--菜单-->
+        <createTable tableName="jhi_menu">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="menu_name" type="varchar(50)">
+                <constraints   />
+            </column>
+            <column name="url" type="varchar(50)">
+                <constraints   />
+            </column>
+            <column name="type" type="varchar(10)">
+                <constraints   />
+            </column>
+            <column name="icon" type="varchar(20)">
+                <constraints   />
+            </column>
+            <column name="order_num" type="varchar(20)">
+                <constraints   />
+            </column>
+            <column name="parent_id" type="varchar(20)">
+                <constraints  />
+            </column>
+        </createTable>
+        <createIndex indexName="jhi_menu"
+                     tableName="jhi_menu"
+                     unique="false">
+            <column name="id" type="bigint"/>
+            <column name="menu_name" type="varchar(50)"/>
+        </createIndex>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/menu.csv"
+                  separator=";"
+                  tableName="jhi_menu"/>
+
+        <!--权限菜单-->
+        <createTable tableName="jhi_authority_menu">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="menu_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="jhi_authority_menu"
+                     tableName="jhi_authority_menu"
+                     unique="false">
+            <column name="menu_id" type="bigint"/>
+            <column name="authority_name" type="varchar(50)"/>
+        </createIndex>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/menu_authorities.csv"
+                  separator=";"
+                  tableName="jhi_authority_menu"/>
     </changeSet>
 </databaseChangeLog>

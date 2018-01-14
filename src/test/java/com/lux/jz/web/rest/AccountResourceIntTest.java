@@ -8,6 +8,7 @@ import com.lux.jz.repository.AuthorityRepository;
 import com.lux.jz.repository.UserRepository;
 import com.lux.jz.security.AuthoritiesConstants;
 import com.lux.jz.service.MailService;
+import com.lux.jz.service.MenuService;
 import com.lux.jz.service.dto.UserDTO;
 import com.lux.jz.web.rest.errors.ExceptionTranslator;
 import com.lux.jz.web.rest.vm.KeyAndPasswordVM;
@@ -62,6 +63,9 @@ public class AccountResourceIntTest {
     private UserService userService;
 
     @Autowired
+    private MenuService menuService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -85,10 +89,10 @@ public class AccountResourceIntTest {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(anyObject());
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService);
+            new AccountResource(userRepository, userService, mockMailService,menuService);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService);
+            new AccountResource(userRepository, mockUserService, mockMailService,menuService);
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)

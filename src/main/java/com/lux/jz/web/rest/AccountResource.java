@@ -2,10 +2,12 @@ package com.lux.jz.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
+import com.lux.jz.domain.Menu;
 import com.lux.jz.domain.User;
 import com.lux.jz.repository.UserRepository;
 import com.lux.jz.security.SecurityUtils;
 import com.lux.jz.service.MailService;
+import com.lux.jz.service.MenuService;
 import com.lux.jz.service.UserService;
 import com.lux.jz.service.dto.UserDTO;
 import com.lux.jz.web.rest.errors.*;
@@ -35,13 +37,16 @@ public class AccountResource {
 
     private final UserService userService;
 
+    private final MenuService menuService;
+
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,MenuService menuService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.menuService = menuService;
     }
 
     /**
@@ -105,6 +110,18 @@ public class AccountResource {
         return userService.getUserWithAuthorities()
             .map(UserDTO::new)
             .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+    }
+
+    /**
+     * GET  /menu : get the current user`s menu.
+     *
+     * @return the current user`s menu.
+     * @throws RuntimeException 500 (Internal Server Error) if the user couldn't be returned
+     */
+    @GetMapping("/menu")
+    @Timed
+    public List<Menu> getenu() {
+        return menuService.getMenu();
     }
 
     /**

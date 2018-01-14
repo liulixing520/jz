@@ -17,8 +17,8 @@
                     controllerAs: 'vm'
                 },'sidebar@': {
                     templateUrl: 'app/layouts/navbar/sidebar.html',
-                    controller: '',
-                    controllerAs: ''
+                    controller: 'SidebarController',
+                    controllerAs: 'vm'
                 },'footbar@': {
                     templateUrl: 'app/layouts/navbar/footbar.html',
                     controller: '',
