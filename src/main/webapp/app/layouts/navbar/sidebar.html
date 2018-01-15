@@ -2,32 +2,15 @@
         <ul class="nav" >
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
+                <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> Dashboard </a>
             </li>
 
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle open" href="#"><i class="icon-puzzle"></i> 管理</a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="user-management" ><i class="icon-user"></i> 用户管理</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="jhi-metrics" ><i class="icon-equalizer"></i> 追踪使用者</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="jhi-health" ><i class="icon-event"></i> 资源监控</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="jhi-configuration"><i class="icon-direction"></i> 配置</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="audits"><i class="icon-plane"></i> 审核</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="logs"><i class="icon-control-start"></i> 日志</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="docs"><i class="icon-graduation"></i> API</a>
+            <li class="nav-item nav-dropdown"  ng-repeat="menu in vm.menuList | filter:{menuLevel:'1'}" >
+                <a class="nav-link nav-dropdown-toggle"   ui-sref-active="active" href="#"><i class="icon-puzzle"></i> {{menu.menuName}}</a>
+
+                <ul class="nav-dropdown-items" ng-repeat="menusub in vm.menuList | filter:{menuLevel:'2'}" >
+                    <li class="nav-item "  ng-show="menusub.parentId==menu.id" >
+                        <a class="nav-link " ui-sref-active="active"  ui-sref="{{menusub.url}}" ><i class="{{menusub.icon}}"></i> {{menusub.menuName}}</a>
                     </li>
                 </ul>
             </li>

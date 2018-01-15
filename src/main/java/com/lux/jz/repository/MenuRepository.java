@@ -19,11 +19,16 @@ import java.util.Optional;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-    @Query(value = " select DISTINCT jam.menu_id,jm.`name` from jhi_user ju \n" +
+    /**
+     *
+     * @param login
+     * @return
+     */
+    @Query(value = " select DISTINCT jm.* from jhi_user ju \n" +
         "LEFT  JOIN jhi_user_authority jua on jua.user_id =ju.id\n" +
         "LEFT JOIN jhi_authority_menu jam on jam.authority_name = jua.authority_name\n" +
         "LEFT JOIN jhi_menu jm on jm.id = jam.menu_id \t\n" +
-        "where ju.login = 'admin'" ,nativeQuery = true)
+        "where ju.login = ?1" ,nativeQuery = true)
     List<Menu> findByLogin(String login);
 
 

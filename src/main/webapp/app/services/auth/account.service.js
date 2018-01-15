@@ -3,9 +3,11 @@
 
     angular
         .module('jzApp')
-        .factory('Account', Account);
+        .factory('Account', Account)
+        .factory('Menu', Menu);
 
     Account.$inject = ['$resource'];
+    Menu.$inject = ['$resource'];
 
     function Account ($resource) {
         var service = $resource('api/account', {}, {
@@ -17,6 +19,21 @@
                     }
                 }
             }
+        });
+
+        return service;
+    }
+
+    /**
+     * 获取当前用户的下的菜单
+     * @param $resource
+     * @returns {*}
+     * @constructor
+     */
+    function Menu ($resource) {
+        var service = $resource('api/menu', {}, {
+            'query': { method: 'GET', isArray: true}
+
         });
 
         return service;

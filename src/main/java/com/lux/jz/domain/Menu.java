@@ -26,7 +26,7 @@ public class Menu implements Serializable {
      * 名称
      */
     @Column(length = 50)
-    public String menu_name;
+    public String menuName;
     /**
      * 请求url
      */
@@ -48,6 +48,11 @@ public class Menu implements Serializable {
     @Column(length = 20)
     public String orderNum;
     /**
+     * 菜单级别
+     */
+    @Column(length = 10)
+    public String menuLevel;
+    /**
      * 父级id
      */
     @Column(length = 20)
@@ -62,12 +67,12 @@ public class Menu implements Serializable {
         this.id = id;
     }
 
-    public String getMenu_name() {
-        return menu_name;
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setMenu_name(String menu_name) {
-        this.menu_name = menu_name;
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 
     public String getUrl() {
@@ -110,15 +115,24 @@ public class Menu implements Serializable {
         this.parentId = parentId;
     }
 
+    public String getMenuLevel() {
+        return menuLevel;
+    }
+
+    public void setMenuLevel(String menuLevel) {
+        this.menuLevel = menuLevel;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
             "id=" + id +
-            ", menu_name='" + menu_name + '\'' +
+            ", menuName='" + menuName + '\'' +
             ", url='" + url + '\'' +
             ", type='" + type + '\'' +
             ", icon='" + icon + '\'' +
             ", orderNum='" + orderNum + '\'' +
+            ", menuLevel='" + menuLevel + '\'' +
             ", parentId='" + parentId + '\'' +
             '}';
     }

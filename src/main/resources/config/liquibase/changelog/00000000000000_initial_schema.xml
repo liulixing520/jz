@@ -162,6 +162,9 @@
             <column name="order_num" type="varchar(20)">
                 <constraints   />
             </column>
+            <column name="menu_level" type="varchar(20)">
+                <constraints  />
+            </column>
             <column name="parent_id" type="varchar(20)">
                 <constraints  />
             </column>
